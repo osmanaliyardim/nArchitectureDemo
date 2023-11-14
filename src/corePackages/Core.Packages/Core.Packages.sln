@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Persistance", "Core.Persistance\Core.Persistance.csproj", "{BE01A55D-40B8-410B-99F5-167B9A10E013}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Persistance", "Core.Persistance\Core.Persistance.csproj", "{BE01A55D-40B8-410B-99F5-167B9A10E013}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Application", "Core.Application\Core.Application.csproj", "{F54EBBD9-C2AC-4269-A6DB-867B2F20A917}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{BE01A55D-40B8-410B-99F5-167B9A10E013}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE01A55D-40B8-410B-99F5-167B9A10E013}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE01A55D-40B8-410B-99F5-167B9A10E013}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F54EBBD9-C2AC-4269-A6DB-867B2F20A917}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F54EBBD9-C2AC-4269-A6DB-867B2F20A917}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F54EBBD9-C2AC-4269-A6DB-867B2F20A917}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F54EBBD9-C2AC-4269-A6DB-867B2F20A917}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

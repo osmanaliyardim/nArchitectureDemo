@@ -8,7 +8,6 @@
 	
   <ItemGroup>
 	<Folder Include="Dynamic\" />
-	<Folder Include="Paging\" />
 	<Folder Include="Repositories\" />
   </ItemGroup>
 
