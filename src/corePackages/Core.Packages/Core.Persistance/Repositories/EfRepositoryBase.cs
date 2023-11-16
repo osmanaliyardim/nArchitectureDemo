@@ -170,7 +170,7 @@ public class EfRepositoryBase<TEntity, TEntityId, TContext>
                         || x.DependentToPrincipal?.ForeignKey.DeclaringEntityType.ClrType == entity.GetType()
                     ) == false;
 
-        if (!doesEntityHaveOneToOneRelation)
+        if (doesEntityHaveOneToOneRelation)
         {
             throw new InvalidOperationException(
                     "Entity has one-to-one relationship (cannot be softly deleted)!"
@@ -193,7 +193,7 @@ public class EfRepositoryBase<TEntity, TEntityId, TContext>
 
         foreach (INavigation? navigation in navigations)
         {
-            if (navigation.TargetEntityType.IsOwned())
+            if (navigation.DeclaringEntityType.IsOwned())
                 continue;
             if (navigation.PropertyInfo == null)
                 continue;
