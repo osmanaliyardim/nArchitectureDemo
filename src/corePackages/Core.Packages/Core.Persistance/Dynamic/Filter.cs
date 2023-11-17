@@ -10,7 +10,7 @@ public class Filter
 
     public string? Logic { get; set; }
 
-    public IEnumerable<Filter> Filters { get; set; }
+    public IEnumerable<Filter>? Filters { get; set; }
 
     public Filter()
     {
