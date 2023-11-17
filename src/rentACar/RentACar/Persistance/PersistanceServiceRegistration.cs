@@ -11,7 +11,9 @@ public static class PersistanceServiceRegistration
 {
     public static IServiceCollection AddPersistanceServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<BaseDbContext>(options => options.UseInMemoryDatabase("nArchitectureDB"));
+        //services.AddDbContext<BaseDbContext>(options => options.UseInMemoryDatabase("nArchitectureDB"));
+        services.AddDbContext<BaseDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("nArchitectureDB")));
+        
         services.AddScoped<IBrandRepository, BrandRepository>();
 
         return services;
