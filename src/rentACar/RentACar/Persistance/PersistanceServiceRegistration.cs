@@ -15,6 +15,7 @@ public static class PersistanceServiceRegistration
         services.AddDbContext<BaseDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("nArchitectureDB")));
         
         services.AddScoped<IBrandRepository, BrandRepository>();
+        services.AddScoped<IModelRepository, ModelRepository>();
 
         return services;
     }
