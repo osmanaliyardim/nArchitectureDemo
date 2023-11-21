@@ -3,7 +3,7 @@ using FluentValidation;
 using MediatR;
 using ValidationException = Core.CrossCuttingConcerns.Exceptions.Types.ValidationException;
 
-namespace Core.Application.Pipelines;
+namespace Core.Application.Pipelines.Validation;
 
 public class RequestValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
@@ -25,7 +25,7 @@ public class RequestValidationBehavior<TRequest, TResponse> : IPipelineBehavior<
             .Where(failure => failure != null)
             .GroupBy(
                 keySelector: p => p.PropertyName,
-                resultSelector: (propertyName, errors) => 
+                resultSelector: (propertyName, errors) =>
                     new ValidationExceptionModel { Property = propertyName, Errors = errors.Select(e => e.ErrorMessage) }
             ).ToList();
 
