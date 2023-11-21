@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<Folder Include="Features\Brands\Commands\Create\" />
     <Folder Include="Features\Brands\Profiles\" />
     <Folder Include="Features\Models\Commands\" />
     <Folder Include="Features\Models\Constants\" />
@@ -16,6 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.8.0" />
     <PackageReference Include="MediatR" Version="12.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.13" />
   </ItemGroup>
