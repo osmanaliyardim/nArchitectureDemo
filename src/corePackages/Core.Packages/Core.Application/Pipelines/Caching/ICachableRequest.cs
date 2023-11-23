@@ -6,5 +6,7 @@ public interface ICachableRequest
 
     public bool BypassCache { get; }
 
+    string? CacheGroupKey { get; }
+
     public TimeSpan? SlidingExpiration { get; }
 }
