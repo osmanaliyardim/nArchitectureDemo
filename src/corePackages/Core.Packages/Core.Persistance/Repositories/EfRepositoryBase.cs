@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Collections;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Core.Persistance.Repositories;
 
@@ -256,51 +258,93 @@ public class EfRepositoryBase<TEntity, TEntityId, TContext>
     // --Sync part
     public TEntity? Get(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null, bool withDeleted = false, bool enableTracking = true)
     {
-        throw new NotImplementedException();
+        return Context.Set<TEntity>().FirstOrDefault(predicate);
     }
 
     public Paginate<TEntity> GetList(Expression<Func<TEntity, bool>>? predicate = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null, int index = 0, int size = 10, bool withDeleted = false, bool enableTracking = true)
     {
-        throw new NotImplementedException();
+        IQueryable<TEntity> queryable = Query();
+
+        if (!enableTracking) queryable = queryable.AsNoTracking();
+
+        if (include != null) queryable = include(queryable);
+
+        if (predicate != null) queryable = queryable.Where(predicate);
+
+        if (orderBy != null) return orderBy(queryable).ToPaginate(index, size);
+
+        return queryable.ToPaginate(index, size);
     }
 
     public Paginate<TEntity> GetListByDynamic(DynamicQuery dynamic, Expression<Func<TEntity, bool>>? predicate = null, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null, int index = 0, int size = 10, bool withDeleted = false, bool enableTracking = true)
     {
-        throw new NotImplementedException();
+        IQueryable<TEntity> queryable = Query().AsQueryable().ToDynamic(dynamic);
+
+        if (!enableTracking) queryable = queryable.AsNoTracking();
+
+        if (include != null) queryable = include(queryable);
+
+        if (predicate != null) queryable = queryable.Where(predicate);
+
+        return queryable.ToPaginate(index, size);
     }
 
     public bool Any(Expression<Func<TEntity, bool>>? predicate = null, bool withDeleted = false, bool enableTracking = true)
     {
-        throw new NotImplementedException();
+        IQueryable<TEntity> queryable = Query();
+
+        if (!enableTracking) queryable = queryable.AsNoTracking();
+
+        if (predicate != null) queryable = queryable.Where(predicate);
+
+        return queryable.Any();
     }
 
     public TEntity Add(TEntity entity)
     {
-        throw new NotImplementedException();
+        Context.Entry(entity).State = EntityState.Added;
+        Context.SaveChanges();
+
+        return entity;
     }
 
-    public ICollection<TEntity> AddRange(ICollection<TEntity> entity)
+    public ICollection<TEntity> AddRange(ICollection<TEntity> entities)
     {
-        throw new NotImplementedException();
+        Context.Set<TEntity>().AddRange(entities);
+        Context.SaveChanges();
+
+        return entities;
     }
 
     public TEntity Update(TEntity entity)
     {
-        throw new NotImplementedException();
+        Context.Entry(entity).State = EntityState.Modified;
+        Context.SaveChanges();
+
+        return entity;
     }
 
-    public ICollection<TEntity> UpdateRange(ICollection<TEntity> entity)
+    public ICollection<TEntity> UpdateRange(ICollection<TEntity> entities)
     {
-        throw new NotImplementedException();
+        Context.Set<TEntity>().UpdateRange(entities);
+        Context.SaveChanges();
+
+        return entities;
     }
 
     public TEntity Delete(TEntity entity, bool permanent = false)
     {
-        throw new NotImplementedException();
+        Context.Entry(entity).State = EntityState.Deleted;
+        Context.SaveChanges();
+
+        return entity;
     }
 
-    public ICollection<TEntity> DeleteRange(ICollection<TEntity> entity, bool permanent = false)
+    public ICollection<TEntity> DeleteRange(ICollection<TEntity> entities, bool permanent = false)
     {
-        throw new NotImplementedException();
+        Context.Set<TEntity>().RemoveRange(entities);
+        Context.SaveChanges();
+
+        return entities;
     }
 }
